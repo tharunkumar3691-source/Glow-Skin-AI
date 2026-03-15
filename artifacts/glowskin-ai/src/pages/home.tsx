@@ -5,12 +5,12 @@ import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 const features = [
-  { icon: Camera,   title: "AI Skin Scan",        description: "Instantly analyze your skin using advanced computer vision.",              color: "bg-rose-500/20   text-rose-400"   },
-  { icon: Activity, title: "Health Dashboard",     description: "Track your 0–100 skin score and predicted recovery timeline.",            color: "bg-emerald-500/20 text-emerald-400" },
-  { icon: Sun,      title: "Environmental Risk",   description: "7-day localized forecast protecting you from UV and pollution.",          color: "bg-amber-500/20   text-amber-400"  },
-  { icon: Droplets, title: "Habit Coach",          description: "Personalized daily routines tailored to your unique skin profile.",      color: "bg-blue-500/20    text-blue-400"   },
-  { icon: Mic,      title: "Voice Dermatologist",  description: "Ask questions naturally to our AI Nova Sonic specialist.",               color: "bg-purple-500/20  text-purple-400" },
-  { icon: Shield,   title: "Skin Protection",      description: "Preventive advice and product recommendations powered by Bedrock AI.",   color: "bg-pink-500/20    text-pink-400"   },
+  { icon: Camera,   title: "AI Skin Scan",        description: "Instantly analyze your skin using advanced computer vision.",              color: "bg-rose-100   text-rose-600"   },
+  { icon: Activity, title: "Health Dashboard",     description: "Track your 0–100 skin score and predicted recovery timeline.",            color: "bg-emerald-100 text-emerald-600" },
+  { icon: Sun,      title: "Environmental Risk",   description: "7-day localized forecast protecting you from UV and pollution.",          color: "bg-amber-100   text-amber-600"  },
+  { icon: Droplets, title: "Habit Coach",          description: "Personalized daily routines tailored to your unique skin profile.",      color: "bg-blue-100    text-blue-600"   },
+  { icon: Mic,      title: "Voice Dermatologist",  description: "Ask questions naturally to our AI Nova Sonic specialist.",               color: "bg-purple-100  text-purple-600" },
+  { icon: Shield,   title: "Skin Protection",      description: "Preventive advice and product recommendations powered by Bedrock AI.",   color: "bg-pink-100    text-pink-600"   },
 ];
 
 
@@ -259,21 +259,21 @@ export default function Home() {
 
           {/* Floating metric cards */}
           <motion.div initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9, type: "spring" }}
-            className="absolute top-[4%] right-[4%] bg-[#1a1228]/90 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3 z-20">
-            <span className="text-xl text-emerald-400">✦</span>
-            <div><p className="text-xs text-white/50">Skin Score</p><p className="text-lg font-bold text-emerald-400">94<span className="text-xs font-normal ml-0.5 opacity-70">/100</span></p></div>
+            className="absolute top-[4%] right-[4%] bg-white/80 backdrop-blur-md border border-border rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3 z-20">
+            <span className="text-xl text-emerald-500">✦</span>
+            <div><p className="text-xs text-muted-foreground">Skin Score</p><p className="text-lg font-bold text-emerald-600">94<span className="text-xs font-normal ml-0.5 opacity-60">/100</span></p></div>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.1, type: "spring" }}
-            className="absolute bottom-[22%] right-[0%] bg-[#1a1228]/90 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3 z-20">
-            <span className="text-xl text-blue-400">◈</span>
-            <div><p className="text-xs text-white/50">Hydration</p><p className="text-lg font-bold text-blue-400">87<span className="text-xs font-normal ml-0.5 opacity-70">%</span></p></div>
+            className="absolute bottom-[22%] right-[0%] bg-white/80 backdrop-blur-md border border-border rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3 z-20">
+            <span className="text-xl text-blue-500">◈</span>
+            <div><p className="text-xs text-muted-foreground">Hydration</p><p className="text-lg font-bold text-blue-600">87<span className="text-xs font-normal ml-0.5 opacity-60">%</span></p></div>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.3, type: "spring" }}
-            className="absolute bottom-[4%] left-[2%] bg-[#1a1228]/90 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3 z-20">
-            <span className="text-xl text-amber-400">☀</span>
-            <div><p className="text-xs text-white/50">UV Risk</p><p className="text-lg font-bold text-amber-400">Low</p></div>
+            className="absolute bottom-[4%] left-[2%] bg-white/80 backdrop-blur-md border border-border rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3 z-20">
+            <span className="text-xl text-amber-500">☀</span>
+            <div><p className="text-xs text-muted-foreground">UV Risk</p><p className="text-lg font-bold text-amber-600">Low</p></div>
           </motion.div>
 
           {/* Scan indicator badge */}
@@ -315,7 +315,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.08, type: "spring", stiffness: 120 }}
               whileHover={{ y: -5, scale: 1.02 }}
-              className="bg-card/60 backdrop-blur-md rounded-3xl p-8 border border-border/50 shadow-lg hover:border-primary/30 transition-colors group cursor-default"
+              className="bg-white/60 backdrop-blur-md rounded-3xl p-8 border border-white/80 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.09)] hover:border-primary/20 transition-all group cursor-default"
             >
               <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${feature.color} group-hover:scale-110 transition-transform`}>
                 <feature.icon className="w-7 h-7" />

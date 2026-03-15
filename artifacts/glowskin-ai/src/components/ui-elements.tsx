@@ -36,8 +36,7 @@ export const GlassCard = forwardRef<HTMLDivElement, HTMLMotionProps<"div">>(
         animate={{ opacity: 1, y: 0 }}
         className={`
           bg-card/80 backdrop-blur-xl border border-border
-          shadow-[0_8px_30px_rgba(0,0,0,0.25)]
-          dark:shadow-[0_8px_40px_rgba(0,0,0,0.5)]
+          shadow-[0_8px_30px_rgba(0,0,0,0.07)]
           rounded-3xl p-6 lg:p-8
           ${className}
         `}
@@ -53,10 +52,10 @@ GlassCard.displayName = 'GlassCard';
 // Badge
 export const Badge = ({ children, severity = 'medium' }: { children: React.ReactNode, severity?: 'low' | 'medium' | 'high' | 'default' }) => {
   const colors = {
-    low:     "bg-green-900/50  text-green-300  border-green-700/50",
-    medium:  "bg-yellow-900/50 text-yellow-300 border-yellow-700/50",
-    high:    "bg-red-900/50    text-red-300    border-red-700/50",
-    default: "bg-primary/20   text-primary    border-primary/30",
+    low:     "bg-green-100  text-green-700  border-green-200",
+    medium:  "bg-yellow-100 text-yellow-700 border-yellow-200",
+    high:    "bg-red-100    text-red-700    border-red-200",
+    default: "bg-primary/10 text-primary    border-primary/20",
   };
   return (
     <span className={`px-3 py-1 text-xs font-semibold rounded-full border inline-flex items-center shadow-sm ${colors[severity]}`}>
