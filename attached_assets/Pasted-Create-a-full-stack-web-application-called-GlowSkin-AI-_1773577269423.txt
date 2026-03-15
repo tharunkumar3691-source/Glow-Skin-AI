@@ -1,0 +1,316 @@
+Create a full-stack web application called GlowSkin AI.
+
+GOAL
+GlowSkin AI is an AI-powered skincare assistant that analyzes a user's face image, detects skin issues, predicts recovery time, and provides personalized skincare advice using environmental data and AI reasoning.
+
+---
+
+TECH STACK
+
+Frontend: React with modern responsive UI
+Backend: Python FastAPI
+Image processing: OpenCV and Pillow
+AI models: Amazon Bedrock Nova Lite and Nova Sonic
+Database: SQLite
+Charts: Chart.js for visualization
+
+The backend must read AWS credentials from environment variables (DO NOT hardcode them).
+
+Environment variables:
+
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+AWS_REGION
+
+AWS_REGION must be set to:
+
+us-east-1
+
+---
+
+FEATURE 1 — SKIN SCAN
+
+Allow users to:
+
+• Take a selfie using webcam
+• Upload an image from device
+• Optionally select skin type
+
+Skin type options:
+
+Dry
+Oily
+Combination
+Balanced
+
+The backend analyzes the face image and detects these skin conditions:
+
+Acne
+New acne
+Post-acne marks
+Dark spots
+Dark circles
+Dry skin
+Puffy eyes
+Rosacea
+Wrinkles
+Skin firmness
+
+Use OpenCV to estimate these issues.
+
+Return the detected skin issues to the frontend.
+
+---
+
+FEATURE 2 — SKIN HEALTH SCORE
+
+Generate a Skin Health Score from 0–100.
+
+Score meaning:
+
+90–100 → excellent skin
+70–89 → minor issues
+50–69 → moderate issues
+30–49 → visible problems
+0–29 → severe issues
+
+Display the score visually using a progress bar and gauge chart.
+
+---
+
+FEATURE 3 — AI TREATMENT GENERATION
+
+Send detected skin issues to Amazon Bedrock Nova Lite.
+
+Example prompt:
+
+"User skin analysis detected acne, dark spots, and dry skin. Generate skincare routine, natural remedies, one home remedy, and recommended skincare products."
+
+Return structured results:
+
+Lifestyle advice
+Morning skincare routine
+Night skincare routine
+Natural treatments
+One home remedy
+
+Recommended product types:
+
+Face wash
+Moisturizer
+Sunscreen
+Treatment cream
+
+---
+
+FEATURE 4 — RECOVERY PREDICTION
+
+Predict estimated recovery time using the skin health score.
+
+Rules:
+
+80–100 → 11 days
+60–79 → 16 days
+40–59 → 21 days
+20–39 → 30 days
+0–19 → more than 30 days
+
+Also display expected improvement percentages.
+
+---
+
+FEATURE 5 — ENVIRONMENTAL SKIN RISK PREDICTOR
+
+Create a component called Environmental Skin Risk Predictor.
+
+Steps:
+
+1. Ask the user for their city or detect location automatically.
+2. Fetch environmental data from a weather API such as OpenWeatherMap.
+
+Collect data:
+
+UV index
+Humidity
+Temperature
+Air pollution (PM2.5)
+
+3. Based on environmental conditions and detected skin issues, generate a Skin Risk Forecast.
+
+Example risks:
+
+High UV → dark spots may worsen
+High pollution → acne inflammation risk
+Low humidity → dry skin risk
+
+4. Display a 7-day Skin Risk Forecast.
+
+Example output:
+
+Day 1: High UV risk → wear SPF 50 sunscreen
+Day 2: High pollution → cleanse face twice
+Day 3: Low humidity → apply moisturizer
+
+5. Generate preventive skincare advice for the next 24 hours.
+
+---
+
+FEATURE 6 — VOICE DERMATOLOGIST
+
+Create a voice assistant using Amazon Nova Sonic.
+
+Features:
+
+• microphone button
+• user asks skincare questions via voice
+• backend sends speech input to Nova Sonic
+• AI returns spoken answers
+
+Example questions:
+
+"Why do I get acne?"
+"How can I remove dark circles?"
+"What skincare routine should I follow?"
+
+---
+
+FEATURE 7 — AI SKIN HABIT COACH
+
+Create a component called AI Skin Habit Coach.
+
+Using detected skin issues and environmental risk data, generate a personalized daily skincare plan.
+
+Sections:
+
+Morning Routine
+Afternoon Protection
+Night Routine
+
+Example:
+
+Morning
+• Gentle cleanser
+• Vitamin C serum
+• SPF 50 sunscreen
+
+Afternoon
+• Reapply sunscreen
+• Hydrating mist
+
+Night
+• Cleanse face
+• Niacinamide serum
+• Moisturizer
+
+Also generate Healthy Skin Habits:
+
+Drink enough water
+Avoid touching the face frequently
+Sleep at least 7–8 hours
+Reduce sugar intake
+
+---
+
+FEATURE 8 — AI SKIN INTELLIGENCE DASHBOARD
+
+Create a dashboard at the top of the Results page that clearly shows the AI analysis in three steps.
+
+Step 1 — Skin Scan
+Display detected skin issues.
+
+Step 2 — AI Diagnosis
+Display:
+• Skin Health Score
+• Recovery Prediction
+• Treatment Plan
+
+Step 3 — Skin Protection Insights
+Display:
+• Environmental Skin Risk Forecast
+• Preventive skincare advice
+• Daily habit plan
+
+Use a card-based UI with icons.
+
+Example layout:
+
+AI Skin Intelligence Dashboard
+
+1️⃣ Skin Scan
+Detected issues: Acne, Dark spots
+
+2️⃣ AI Diagnosis
+Skin Health Score: 68 / 100
+Estimated Recovery: 21 days
+
+3️⃣ Skin Protection
+High UV risk tomorrow → Use SPF 50 sunscreen
+
+---
+
+DATABASE STRUCTURE
+
+Create SQLite tables.
+
+Users table:
+
+user_id
+email
+created_at
+
+SkinAnalysis table:
+
+analysis_id
+user_id
+health_score
+detected_issues
+recommended_treatment
+recovery_days
+created_at
+
+---
+
+API ENDPOINTS
+
+POST /analyze-skin
+POST /generate-treatment
+POST /environmental-risk
+POST /voice-dermatologist
+POST /skin-habit-coach
+
+---
+
+FRONTEND PAGES
+
+Home Page
+Skin Scan Page
+Results Page
+Environmental Risk Page
+Skin Habit Coach Page
+Voice Dermatologist Page
+
+UI must include:
+
+• webcam capture interface
+• image upload button
+• health score visualization
+• treatment recommendation cards
+• recovery prediction section
+• environmental skin risk forecast
+• daily skin habit coach
+
+---
+
+IMPORTANT
+
+Do NOT implement:
+
+• estimated glowing face generation
+• predicted face images
+• progress tracker
+
+Ensure the backend uses boto3 to connect to Amazon Bedrock and reads AWS credentials from environment variables.
+
+Generate the complete project structure including frontend components, backend APIs, database models, and Bedrock integration.
+
+The generated code must run without errors and include clear folder structure for frontend, backend, and services.
