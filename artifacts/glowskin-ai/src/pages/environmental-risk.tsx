@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useGetEnvironmentalRisk } from '@workspace/api-client-react';
 import { GlassCard, GlowButton, Badge } from '@/components/ui-elements';
-import { Search, MapPin, Sun, Droplets, Wind, ThermometerSun, AlertTriangle, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Search, MapPin, Sun, Droplets, Wind, ThermometerSun, AlertTriangle, ShieldCheck, CheckCircle2, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useToast } from '@/hooks/use-toast';
 
