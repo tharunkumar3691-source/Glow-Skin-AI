@@ -33,7 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Header */}
       <header 
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-          scrolled ? 'bg-white/80 backdrop-blur-md border-b border-border/50 shadow-sm py-3' : 'bg-transparent py-5'
+          scrolled ? 'bg-background/85 backdrop-blur-md border-b border-border/50 shadow-sm py-3' : 'bg-transparent py-5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -45,7 +45,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1 bg-white/50 backdrop-blur-sm border border-border/50 px-2 py-1.5 rounded-full shadow-sm">
+          <nav className="hidden md:flex items-center gap-1 bg-card/60 backdrop-blur-sm border border-border/50 px-2 py-1.5 rounded-full shadow-sm">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location === item.href;
@@ -96,7 +96,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     className={`flex items-center gap-3 px-6 py-4 rounded-2xl text-lg font-medium transition-all ${
                       isActive 
                         ? 'bg-primary text-primary-foreground shadow-md' 
-                        : 'bg-white/50 text-foreground border border-border/50'
+                        : 'bg-card/50 text-foreground border border-border/50'
                     }`}
                   >
                     <Icon className="w-6 h-6" />
