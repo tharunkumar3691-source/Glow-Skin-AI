@@ -1,0 +1,18 @@
+packages:
+  "framer-motion": "For page transitions and smooth UI animations"
+  "chart.js": "For rendering the Skin Health Score gauge chart"
+  "react-chartjs-2": "React wrapper for chart.js"
+  "zustand": "For sharing skin scan analysis results across pages without prop drilling"
+
+images:
+  - path: "artifacts/glowskin-ai/public/images/hero-abstract.png"
+    description: "Soft elegant abstract 3d shapes in pastel pink, peach, and cream colors, glossy fluid texture, high end skincare advertisement style"
+    aspect_ratio: "16:9"
+  - path: "artifacts/glowskin-ai/public/images/voice-avatar.png"
+    description: "Minimalist elegant 3d avatar of a friendly female AI dermatologist, soft studio lighting, soft pastel pink background"
+    aspect_ratio: "1:1"
+
+notes:
+  - "Assuming browser supports navigator.mediaDevices.getUserMedia for the webcam feature"
+  - "Assuming browser supports window.SpeechRecognition or webkitSpeechRecognition for the voice feature"
+  - "Scan state is kept in memory via Zustand store; refreshing the page clears the scan data"

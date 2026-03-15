@@ -1,15 +1,24 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: GlowSkin AI API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: skin
+    description: Skin analysis operations
+  - name: treatment
+    description: Treatment generation
+  - name: environmental
+    description: Environmental risk predictor
+  - name: voice
+    description: Voice dermatologist
+  - name: habitcoach
+    description: AI Skin Habit Coach
 paths:
   /healthz:
     get:
@@ -24,6 +33,182 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /analyze-skin:
+    post:
+      operationId: analyzeSkin
+      tags: [skin]
+      summary: Analyze skin image
+      description: Accepts a base64 image, runs skin analysis, returns detected issues and health score
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnalyzeSkinRequest"
+      responses:
+        "200":
+          description: Analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalyzeSkinResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /generate-treatment:
+    post:
+      operationId: generateTreatment
+      tags: [treatment]
+      summary: Generate AI treatment plan
+      description: Send detected skin issues to Bedrock Nova Lite and get a structured treatment plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateTreatmentRequest"
+      responses:
+        "200":
+          description: Treatment plan
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TreatmentPlan"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /environmental-risk:
+    post:
+      operationId: getEnvironmentalRisk
+      tags: [environmental]
+      summary: Get environmental skin risk forecast
+      description: Fetches weather/pollution data for a city and generates a 7-day skin risk forecast
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EnvironmentalRiskRequest"
+      responses:
+        "200":
+          description: Environmental risk forecast
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EnvironmentalRiskResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /voice-dermatologist:
+    post:
+      operationId: voiceDermatologist
+      tags: [voice]
+      summary: Voice dermatologist Q&A
+      description: Accepts text from speech-to-text, sends to Bedrock Nova Lite, returns answer text
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VoiceDermatologistRequest"
+      responses:
+        "200":
+          description: Answer from AI dermatologist
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VoiceDermatologistResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /skin-habit-coach:
+    post:
+      operationId: skinHabitCoach
+      tags: [habitcoach]
+      summary: Generate personalized daily skin habit plan
+      description: Uses detected skin issues and environmental data to generate a daily skincare plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SkinHabitCoachRequest"
+      responses:
+        "200":
+          description: Personalized daily habit plan
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SkinHabitCoachResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /analyses:
+    get:
+      operationId: listAnalyses
+      tags: [skin]
+      summary: List past skin analyses
+      responses:
+        "200":
+          description: List of analyses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SkinAnalysisRecord"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +219,304 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    AnalyzeSkinRequest:
+      type: object
+      properties:
+        imageBase64:
+          type: string
+          description: Base64-encoded image data (without data URL prefix)
+        skinType:
+          type: ["string", "null"]
+          enum: ["Dry", "Oily", "Combination", "Balanced", null]
+          description: Optional user-selected skin type
+      required:
+        - imageBase64
+
+    SkinIssue:
+      type: object
+      properties:
+        name:
+          type: string
+        severity:
+          type: string
+          enum: ["low", "medium", "high"]
+        confidence:
+          type: number
+      required:
+        - name
+        - severity
+        - confidence
+
+    AnalyzeSkinResponse:
+      type: object
+      properties:
+        analysisId:
+          type: integer
+        detectedIssues:
+          type: array
+          items:
+            $ref: "#/components/schemas/SkinIssue"
+        healthScore:
+          type: number
+          description: 0–100 skin health score
+        recoveryDays:
+          type: integer
+          description: Estimated recovery days
+        scoreLabel:
+          type: string
+          description: Label describing the score range
+      required:
+        - analysisId
+        - detectedIssues
+        - healthScore
+        - recoveryDays
+        - scoreLabel
+
+    GenerateTreatmentRequest:
+      type: object
+      properties:
+        analysisId:
+          type: ["integer", "null"]
+        detectedIssues:
+          type: array
+          items:
+            type: string
+        skinType:
+          type: ["string", "null"]
+      required:
+        - detectedIssues
+
+    TreatmentPlan:
+      type: object
+      properties:
+        lifestyleAdvice:
+          type: array
+          items:
+            type: string
+        morningRoutine:
+          type: array
+          items:
+            type: string
+        nightRoutine:
+          type: array
+          items:
+            type: string
+        naturalTreatments:
+          type: array
+          items:
+            type: string
+        homeRemedy:
+          type: string
+        recommendedProducts:
+          $ref: "#/components/schemas/RecommendedProducts"
+      required:
+        - lifestyleAdvice
+        - morningRoutine
+        - nightRoutine
+        - naturalTreatments
+        - homeRemedy
+        - recommendedProducts
+
+    RecommendedProducts:
+      type: object
+      properties:
+        faceWash:
+          type: string
+        moisturizer:
+          type: string
+        sunscreen:
+          type: string
+        treatmentCream:
+          type: string
+      required:
+        - faceWash
+        - moisturizer
+        - sunscreen
+        - treatmentCream
+
+    EnvironmentalRiskRequest:
+      type: object
+      properties:
+        city:
+          type: string
+        detectedIssues:
+          type: array
+          items:
+            type: string
+      required:
+        - city
+
+    DayForecast:
+      type: object
+      properties:
+        day:
+          type: integer
+        date:
+          type: string
+        riskLevel:
+          type: string
+          enum: ["low", "medium", "high"]
+        mainRisk:
+          type: string
+        advice:
+          type: string
+        uvIndex:
+          type: ["number", "null"]
+        humidity:
+          type: ["number", "null"]
+        temperature:
+          type: ["number", "null"]
+        pm25:
+          type: ["number", "null"]
+      required:
+        - day
+        - date
+        - riskLevel
+        - mainRisk
+        - advice
+
+    EnvironmentalRiskResponse:
+      type: object
+      properties:
+        city:
+          type: string
+        currentConditions:
+          $ref: "#/components/schemas/CurrentConditions"
+        forecast:
+          type: array
+          items:
+            $ref: "#/components/schemas/DayForecast"
+        preventiveAdvice:
+          type: array
+          items:
+            type: string
+      required:
+        - city
+        - currentConditions
+        - forecast
+        - preventiveAdvice
+
+    CurrentConditions:
+      type: object
+      properties:
+        uvIndex:
+          type: number
+        humidity:
+          type: number
+        temperature:
+          type: number
+        pm25:
+          type: ["number", "null"]
+        description:
+          type: string
+      required:
+        - uvIndex
+        - humidity
+        - temperature
+        - description
+
+    VoiceDermatologistRequest:
+      type: object
+      properties:
+        question:
+          type: string
+          description: The user's skincare question (from speech-to-text or typed)
+        context:
+          type: ["string", "null"]
+          description: Optional context from previous scan results
+      required:
+        - question
+
+    VoiceDermatologistResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+        followUpQuestions:
+          type: array
+          items:
+            type: string
+      required:
+        - answer
+        - followUpQuestions
+
+    SkinHabitCoachRequest:
+      type: object
+      properties:
+        detectedIssues:
+          type: array
+          items:
+            type: string
+        environmentalRisks:
+          type: array
+          items:
+            type: string
+        skinType:
+          type: ["string", "null"]
+      required:
+        - detectedIssues
+
+    RoutineStep:
+      type: object
+      properties:
+        step:
+          type: string
+        reason:
+          type: ["string", "null"]
+      required:
+        - step
+
+    SkinHabitCoachResponse:
+      type: object
+      properties:
+        morningRoutine:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoutineStep"
+        afternoonProtection:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoutineStep"
+        nightRoutine:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoutineStep"
+        healthyHabits:
+          type: array
+          items:
+            type: string
+      required:
+        - morningRoutine
+        - afternoonProtection
+        - nightRoutine
+        - healthyHabits
+
+    SkinAnalysisRecord:
+      type: object
+      properties:
+        analysisId:
+          type: integer
+        healthScore:
+          type: number
+        detectedIssues:
+          type: array
+          items:
+            type: string
+        recoveryDays:
+          type: integer
+        createdAt:
+          type: string
+      required:
+        - analysisId
+        - healthScore
+        - detectedIssues
+        - recoveryDays
+        - createdAt
