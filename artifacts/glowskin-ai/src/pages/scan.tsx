@@ -2,7 +2,7 @@ import { useState, useRef, useCallback } from 'react';
 import { useLocation } from 'wouter';
 import { Camera, Upload, RefreshCw, CheckCircle, X } from 'lucide-react';
 import { GlowButton, GlassCard } from '@/components/ui-elements';
-import { useAnalyzeSkin, AnalyzeSkinRequestSkinType } from '@workspace/api-client-react';
+import { useAnalyzeSkin, AnalyzeSkinRequestSkinType } from '@/lib/api-client';
 import { useSkinStore } from '@/store/use-skin-store';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '@/hooks/use-toast';

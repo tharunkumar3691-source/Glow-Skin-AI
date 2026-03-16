@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useSkinStore } from '@/store/use-skin-store';
 import { GlassCard, Badge, GlowButton } from '@/components/ui-elements';
-import { useGenerateTreatment } from '@workspace/api-client-react';
+import { useGenerateTreatment } from '@/lib/api-client';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { AlertCircle, Calendar, Sun, ArrowRight, CheckCircle2, Sparkles, Moon, Droplets } from 'lucide-react';

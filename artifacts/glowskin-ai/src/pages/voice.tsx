@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useVoiceDermatologist } from '@workspace/api-client-react';
+import { useVoiceDermatologist } from '@/lib/api-client';
 import { useSkinStore } from '@/store/use-skin-store';
 import { useSpeechRecognition } from '@/hooks/use-speech-recognition';
 import { GlassCard, GlowButton } from '@/components/ui-elements';

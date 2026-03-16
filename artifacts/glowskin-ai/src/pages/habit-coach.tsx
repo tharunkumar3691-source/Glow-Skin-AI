@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSkinHabitCoach, AnalyzeSkinRequestSkinType } from '@workspace/api-client-react';
+import { useSkinHabitCoach, AnalyzeSkinRequestSkinType } from '@/lib/api-client';
 import { useSkinStore } from '@/store/use-skin-store';
 import { GlassCard, GlowButton } from '@/components/ui-elements';
 import { Droplets, CheckCircle2, Sun, Moon, Shield, Info } from 'lucide-react';

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGetEnvironmentalRisk } from '@workspace/api-client-react';
+import { useGetEnvironmentalRisk } from '@/lib/api-client';
 import { GlassCard, GlowButton, Badge } from '@/components/ui-elements';
 import { Search, MapPin, Sun, Droplets, Wind, ThermometerSun, AlertTriangle, ShieldCheck, CheckCircle2, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { AnalyzeSkinResponse, AnalyzeSkinRequestSkinType } from '@workspace/api-client-react';
+import type { AnalyzeSkinResponse, AnalyzeSkinRequestSkinType } from '@/lib/api-client';
 
 interface SkinStore {
   analysisResult: AnalyzeSkinResponse | null;
